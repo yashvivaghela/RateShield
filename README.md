@@ -1,14 +1,12 @@
-# Welcome to your CDK TypeScript project
+# RateShield
 
-This is a blank project for CDK development with TypeScript.
+A serverless API rate-limiting and usage-metering service built on AWS. Enforces per-client request quotas using a token-bucket algorithm with lazy refill, backed by atomic conditional writes in DynamoDB to eliminate race conditions under concurrent load.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
-* `npm run build`   type-check the project
-* `npm run watch`   watch for changes and type-check
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+## Tech Stack
+ 
+- **AWS CDK (TypeScript)** - infrastructure as code
+- **AWS Lambda (Node.js 20)** - authorizer logic, compiled from TypeScript via `NodejsFunction`/esbuild
+- **Amazon API Gateway (REST API)** - request routing and custom authorizer integration
+- **Amazon DynamoDB** - per-client token bucket state
+- **Amazon CloudWatch** - logging, metrics, billing alarm
+- **k6** - concurrency and load testing
